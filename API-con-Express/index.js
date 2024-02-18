@@ -54,10 +54,6 @@ app.get('/peliculas', (req, res) => {
     res.json(peliculas);
 });
 
-app.use((req, res, next) => {
-    res.status(404).send(console.log("Pagina no encontrada"));
-});
-
 app.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });
