@@ -1,22 +1,37 @@
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 
 const API = () => {
+  const [peliculas, setPeliculas] = useState([]);
+
   useEffect(() => {
     const obtenerPeliculas = async () => {
       try {
         const response = await fetch('http://localhost:3000/peliculas');
         const data = await response.json();
-        console.log(data); 
+        setPeliculas(data);
       } catch (error) {
-        console.error('Hubo un error al obtener los datos:', error);
+        console.error('Hubo un error al obtener los datos');
       }
     };
 
     obtenerPeliculas();
-  }, []); 
+  }, []);
 
-  return <></>; // llamada a la API
+
+  return (
+    <div className="peliculas">
+      <h2>Películas</h2>
+      <div className="peliculas-container">
+        {peliculas.map(pelicula => (
+          <div key={pelicula.id} className="pelicula-text">
+            <h3>{pelicula.titulo}</h3>
+            <img src={pelicula.img}/>
+            <p>Genero: {pelicula.genero}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
-export default API//buscar que salga la info
+export default API;
